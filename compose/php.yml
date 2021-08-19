@@ -4,6 +4,8 @@ networks:
   default:
   frontend:
     name: frontend
+  schooler_accounts_bridge:
+    name: schooler_accounts_bridge
 
 services:
   nginx:
@@ -20,6 +22,7 @@ services:
     networks:
       - default
       - frontend
+      - schooler_accounts_bridge
     environment:
       - DOCUMENT_ROOT=${NGINX_DOCUMENT_ROOT:-/php/public}
     volumes:
@@ -34,4 +37,6 @@ services:
     working_dir: /php
     volumes:
       - ${PATH_PHP}:/php
-      - ${HOSTS_FILE}:/etc/hosts
+    networks:
+      - default
+      - schooler_accounts_bridge
